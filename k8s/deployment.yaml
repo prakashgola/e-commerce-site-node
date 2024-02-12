@@ -1,0 +1,36 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: deploy
+  annotations:
+    description: site-node
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      name: site-node
+  template:
+    metadata:
+      name: site-node
+      labels:
+        env: dev
+        name: site-node
+    spec:
+      containers:
+        - name: site-node
+          image: "site-node"
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 3000
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: site-node
+spec:
+  ports:
+    - port: 3000
+      targetPort: 3000
+  selector:
+    name: site-node
+  type: NodePort

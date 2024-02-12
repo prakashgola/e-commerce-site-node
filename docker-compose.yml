@@ -1,0 +1,15 @@
+version: '3.0'
+
+services:
+   site-node:
+      container_name: site-node
+      image: site-node:latest 
+      restart: unless-stopped
+      ports:
+         - "3000:3000"
+
+networks:
+   default:
+      name: node-hello-network
+      external: true
+ 
